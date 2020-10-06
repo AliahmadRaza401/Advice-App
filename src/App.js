@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import axios from 'axios';
+import {Spinner} from 'react-bootstrap';
+
 
 class App extends React.Component{
+
+  
+
   state = {
-     advice : ''
+     advice : '',
+     loading: true
   };
 
   componentDidMount() {
@@ -17,6 +23,8 @@ class App extends React.Component{
        console.log(responce.data.slip.advice);
        const {advice} = responce.data.slip;
        this.setState ({advice });
+       this.setState.loading(false);
+
      })
      .catch((error) => {
        console.log(error);
@@ -28,10 +36,11 @@ class App extends React.Component{
   render(){
     return (
       <>
+      {this.state.loading ? 
       <div className="main">
         <div class="card w-70">
            <div class="header">
-            Wellcome! Advice is ready..
+            Wellcome! Advice is ready.sdaaaaaaaaaaaaaaaaa.
           </div> 
           <div class="card-body">
             <h5 class="card-title"> {this.state.advice} </h5>
@@ -40,6 +49,10 @@ class App extends React.Component{
         </div>
 
       </div>
+      
+      :   <Spinner animation="grow" variant="secondary" />
+
+      }
       
     </>
     );
